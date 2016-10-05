@@ -173,12 +173,18 @@ Custom property | Description | Default
 
       /** You can use this to re-render the input */
       renderElement: function(){
+        console.log('renderElement');
+
         this.$.input.invalid = false;
+
         if(this.value && !this._formattedValue) {
-          var signal = (""+this.value).indexOf("\-")>=0 ? "-" : "";
-          this._formattedValue = signal + (this.value.length >= this.precision ? this.value : (this.value + Array(this.precision + 1).join("0")));
+          console.log('from renderElement');
+          this._valuePreProcessing();
         }
+
         this._setValue = function (f) {
+          console.log('_setValue');
+
           if(this._formattedValue) {
             var signal = this._formattedValue.indexOf("\-") >= 0 ? "-" : "";
             this.set("value", signal + (parseFloat(this._removeUI(this._formattedValue)) / (Math.pow(10, this.precision))).toFixed(this.precision));
@@ -192,10 +198,54 @@ Custom property | Description | Default
         this._formattedValue = "";
       },
 
+      _valuePreProcessing: function() {
+        var signal = ("" + this.value).indexOf("\-") >= 0 ? "-" : "";
+
+        var multiplier = Math.pow(10, this.precision);
+        var value = (this.value * multiplier) / multiplier;
+        var fraction = value % 1;
+        var decFraction = (fraction * multiplier) / multiplier;
+
+        var integer = undefined;
+        var completeNumber = undefined;
+
+        if (decFraction == 0 && this.precision != 0) {
+          console.log('they fed me an Integer');
+          completeNumber = signal + value + ".00";
+        }
+        else {
+          integer = Number(this.value) - Number(decFraction);
+          completeNumber = (integer + decFraction);
+        }
+
+        console.log(this.value);
+        console.log(value);
+        console.log(decFraction);
+        console.log(integer);
+        console.log(completeNumber);
+        console.log('======');
+        console.log(this.precision);
+        console.log(multiplier);
+
+        console.log(signal + (("" + this.value).length >= this.precision));
+        console.log((this.value + Array(this.precision + 1).join("0")));
+
+        console.log('-------------------------------------------------------');
+
+        this._formattedValue = completeNumber;
+
+//        this._formattedValue = signal + ((this.value).length >= this.precision ?
+//                this.value : (this.value + Array(this.precision + 1).join("0")));
+      },
+
       _valueChange: function(){
-        if(this.value && this._formattedValue!= this.value) {
-          var signal = (""+this.value).indexOf("\-")>=0 ? "-" : "";
-          this._formattedValue = signal + ((""+this.value).length >= this.precision ? this.value : (this.value + Array(this.precision + 1).join("0")));
+        console.log('_valueChange');
+
+        if((this.value || this.value === 0 || this.value === '0') &&
+            (this._formattedValue!= this.value || this.value === 0 || this.value === '0')) {
+          console.log('from _valueChange');
+
+          this._valuePreProcessing();
         }
       },
 
@@ -223,15 +273,16 @@ Custom property | Description | Default
       _onValueChanged: function(){
         this.validate();
 
-        if (this._formattedValue === '' || (this._formattedValue === '0' && this.precision==0)) {
+        if (this._formattedValue === '' ||
+            (this._formattedValue === '0' && this.precision == 0)) {
           return;
         }
 
-        if(this.precision==0){
+        if(this.precision == 0){
           this._formattedValue = this._markAmount(this._removeUI(this._formattedValue));
           return;
         }
-        var signal = this._formattedValue.indexOf("\-")>=0 ? "-" : "";
+        var signal = ('' + this._formattedValue).indexOf("\-")>=0 ? "-" : "";
 
         if(this._removeUI(this._formattedValue).length<this.precision+1) {
           var dec = this._getDecimal(this._removeUI(this._formattedValue)), group;
@@ -256,11 +307,11 @@ Custom property | Description | Default
       },
 
       _removeUI: function(string){
-        return string.replace(/[^\d]*/g, '');
+        return ('' + string).replace(/[^\d]*/g, '');
       },
 
       _validate: function(value) {
-        var signal = value.indexOf("\-")>=0 ? "-" : "";
+        var signal = ('' + value).indexOf("\-")>=0 ? "-" : "";
         var n = parseFloat(signal+this._removeUI(value))/(Math.pow(10,this.precision));
 
         if(n>this.maxValue){

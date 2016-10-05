@@ -20,14 +20,21 @@
       <h3>Basic</h3>
       <demo-snippet>
         <template>
-          <money-input></money-input>
+          <money-input value="0"></money-input>
+        </template>
+      </demo-snippet>
+
+      <h3>Negative</h3>
+      <demo-snippet>
+        <template>
+          <money-input value="-5.66"></money-input>
         </template>
       </demo-snippet>
 
       <h3>Preset/Error</h3>
       <demo-snippet>
         <template>
-          <money-input max-value="2" value="4.00"></money-input>
+          <money-input max-value="2" min-value="1" value="5.66"></money-input>
         </template>
       </demo-snippet>
 
@@ -41,7 +48,7 @@
       <h3>noLableFloat</h3>
       <demo-snippet>
         <template>
-          <money-input no-label-float max-value="2" value="600"></money-input>
+          <money-input no-label-float max-value="2" value="-600"></money-input>
         </template>
       </demo-snippet>
 
