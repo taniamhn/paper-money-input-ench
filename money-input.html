@@ -218,24 +218,7 @@ Custom property | Description | Default
           completeNumber = (integer + decFraction);
         }
 
-        console.log(this.value);
-        console.log(value);
-        console.log(decFraction);
-        console.log(integer);
-        console.log(completeNumber);
-        console.log('======');
-        console.log(this.precision);
-        console.log(multiplier);
-
-        console.log(signal + (("" + this.value).length >= this.precision));
-        console.log((this.value + Array(this.precision + 1).join("0")));
-
-        console.log('-------------------------------------------------------');
-
         this._formattedValue = completeNumber;
-
-//        this._formattedValue = signal + ((this.value).length >= this.precision ?
-//                this.value : (this.value + Array(this.precision + 1).join("0")));
       },
 
       _valueChange: function(){
