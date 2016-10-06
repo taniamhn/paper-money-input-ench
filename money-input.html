@@ -173,17 +173,14 @@ Custom property | Description | Default
 
       /** You can use this to re-render the input */
       renderElement: function(){
-        console.log('renderElement');
 
         this.$.input.invalid = false;
 
         if(this.value && !this._formattedValue) {
-          console.log('from renderElement');
           this._valuePreProcessing();
         }
 
         this._setValue = function (f) {
-          console.log('_setValue');
 
           if(this._formattedValue) {
             var signal = this._formattedValue.indexOf("\-") >= 0 ? "-" : "";
@@ -210,7 +207,7 @@ Custom property | Description | Default
         var completeNumber = undefined;
 
         if (decFraction == 0 && this.precision != 0) {
-          console.log('they fed me an Integer');
+          //console.log('they fed me an Integer');
           completeNumber = signal + value + ".00";
         }
         else {
@@ -222,11 +219,9 @@ Custom property | Description | Default
       },
 
       _valueChange: function(){
-        console.log('_valueChange');
 
         if((this.value || this.value === 0 || this.value === '0') &&
             (this._formattedValue!= this.value || this.value === 0 || this.value === '0')) {
-          console.log('from _valueChange');
 
           this._valuePreProcessing();
         }
