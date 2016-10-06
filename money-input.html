@@ -207,12 +207,21 @@ Custom property | Description | Default
         var completeNumber = undefined;
 
         if (decFraction == 0 && this.precision != 0) {
-          //console.log('they fed me an Integer');
           completeNumber = signal + value + ".00";
         }
         else {
           integer = Number(this.value) - Number(decFraction);
           completeNumber = (integer + decFraction);
+
+          completeNumber = completeNumber + '';
+          var respFraction = completeNumber.split('.');
+          var respFractionLen = respFraction[1].length;
+
+          var oddOrEven = respFractionLen % 2;
+
+          if (oddOrEven > 0 ) {
+            completeNumber = '' + completeNumber + '0';
+          }
         }
 
         this._formattedValue = completeNumber;
