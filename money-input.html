@@ -213,25 +213,20 @@ Custom property | Description | Default
           integer = Number(this.value) - Number(decFraction);
           completeNumber = (integer + decFraction);
 
-          console.log(completeNumber);
-
           completeNumber = completeNumber + '';
           var respFraction = completeNumber.split('.');
-          console.log(respFraction);
 
           if (respFraction[1]) {
             var respFractionLen = respFraction[1].length;
 
             if (respFractionLen > this.precision) {
               completeNumber = Number(completeNumber).toFixed(this.precision);
-              console.log(completeNumber);
             }
             else {
 
               var oddOrEven = respFractionLen % 2;
               if (oddOrEven > 0 ) {
                 completeNumber = '' + completeNumber + '0';
-                console.log(completeNumber);
               }
             }
           }
