@@ -48,6 +48,7 @@ Custom property | Description | Default
     <paper-input
             id="input"
             label="[[label]]"
+            tabindex="[[tabindex]]"
             no-label-float="[[noLabelFloat]]"
             always-float-label="[[alwaysFloatLabel]]"
             required$="[[required]]"
@@ -87,6 +88,12 @@ Custom property | Description | Default
         readonly: {
           type: Boolean,
           value: false
+        },
+
+        /** Set field's tabindex */
+        tabindex: {
+          type: Number,
+          value: -1
         },
 
         /** Sets field as required */
