@@ -1,9 +1,6 @@
 <!--
 @license
-Copyright (c) 2016 The Ingresso Rápido Web Components Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://ingressorapidowebcomponents.github.io/LICENSE.txt
-The complete set of authors may be found at http://ingressorapidowebcomponents.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://ingressorapidowebcomponents.github.io/CONTRIBUTORS.txt
+Copyright (c) 2016 The Ingresso Rápido Web Components Authors. Some rights reserved.
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
@@ -14,20 +11,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
 
 <!--
-`<money-input>` is a customizable input validator and mask for currency amounts.
-It uses the paper-input element for create the element form.
+`<paper-money-input>` is a customizable input validator and mask for currency amounts.
+It uses the paper-input element to create the element form.
 
 Default options example:
 
 ```html
-    <money-input value="{{value}}"></money-input>
+    <paper-money-input value="{{value}}"></paper-money-input>
 ```
 
 ### Styling
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--money-input-width` | Field width | 100%
+`--paper-money-input-width` | Field width | 100%
 
 @demo demo/index.html
 -->
@@ -44,6 +41,9 @@ Custom property | Description | Default
       paper-input {
         width: var(--paper-money-input-width);
       }
+      .suffix {
+        @apply(--paper-money-input-suffix);
+      }
     </style>
     <paper-input
             id="input"
@@ -58,6 +58,7 @@ Custom property | Description | Default
             readonly$="[[readonly]]"
             placeholder$="[[placeholder]]">
       <div prefix class="prefix">[[currency]]</div>
+      <div suffix class="suffix">[[suffix]]</div>
     </paper-input>
   </template>
 
@@ -129,6 +130,12 @@ Custom property | Description | Default
         currency: {
           type: String,
           value: '$'
+        },
+
+        /** The suffix symbol or string */
+        suffix: {
+          type: String,
+          value: ''
         },
 
         /** Max value accepted by field */

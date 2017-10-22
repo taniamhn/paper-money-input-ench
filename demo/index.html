@@ -52,15 +52,21 @@
         </template>
       </demo-snippet>
 
-      <h3>Custom style</h3>
+      <h3>Custom styles and Suffix</h3>
       <demo-snippet>
         <template>
           <style is="custom-style">
             paper-money-input.custom-style {
               --paper-money-input-width: 120px;
+              --paper-money-input-suffix: {
+                color: red;
+              }
             }
           </style>
-          <paper-money-input class="custom-style" value="{{value}}"></paper-money-input>
+          <paper-money-input class="custom-style"
+                             suffix="%"
+                             currency=""
+                             value="{{value}}"></paper-money-input>
         </template>
       </demo-snippet>
     </div>
