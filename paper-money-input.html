@@ -299,29 +299,23 @@ Custom property | Description | Default
           this._formattedValue = this._markAmount(this._removeUI(this._formattedValue));
           return;
         }
-
         var signal = ('' + this._formattedValue).indexOf("\-")>=0 ? "-" : "";
 
-        if(this._removeUI(this._formattedValue).length < (this.precision + 1)) {
-
-          var dec = this._getDecimal(this._removeUI(this._formattedValue));
-          var group;
-          var decNoZeros = dec.replace(/(0*)(?=[^0]*)/, '');
-
+        if(this._removeUI(this._formattedValue).length<this.precision+1) {
+          var dec = this._getDecimal(this._removeUI(this._formattedValue)), group;
+          var decNoZeros = dec.replace(/(0*)(?=[^0]*)/, "");
           //check if needs to add 0 in the end, beginning or both
-          group = dec.match(new RegExp('(0*)(?=' + decNoZeros + ')'));
-
-          if(group.filter(function(e,i){if(e.length>0){return e;}}).length > 0){
-            if((group[0].length + decNoZeros.length) == this.precision){
-              this._formattedValue = signal + '0' + this._getDecimal(this._formattedValue);
+          group = dec.match(new RegExp("(0*)(?="+ decNoZeros +")"));
+          if(group.filter(function(e,i){if(e.length>0){return e;}}).length>0){
+            if(group[0].length+decNoZeros.length==this.precision){
+              this._formattedValue = signal + "0"+ this._getDecimal(this._formattedValue);
               return;
-            } else if((group[0].length + decNoZeros.length) < this.precision) {
-              this._formattedValue = signal + group[0] + decNoZeros +
-                this._generateNecessarySizeOfZerosChar(group[0].length + decNoZeros.length);
+            } else if(group[0].length+decNoZeros.length < this.precision) {
+              this._formattedValue = signal + group[0] + decNoZeros + Array((this.precision-(group[0].length+decNoZeros.length))+1).join("0");
               return;
             }
           } else {
-            this._formattedValue = signal + this._generateNecessarySizeOfZerosChar(1 - decNoZeros.length) + decNoZeros;
+            this._formattedValue = signal + Array((this.precision+1-decNoZeros.length)+1).join("0") + decNoZeros;
           }
           return;
         }
