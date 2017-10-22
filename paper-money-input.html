@@ -32,7 +32,7 @@ Custom property | Description | Default
 @demo demo/index.html
 -->
 
-<dom-module id="money-input">
+<dom-module id="paper-money-input">
   <template>
     <style is="custom-style">
       :host {
@@ -42,7 +42,7 @@ Custom property | Description | Default
         padding-right: 10px;
       }
       paper-input {
-        width: var(--money-input-width);
+        width: var(--paper-money-input-width);
       }
     </style>
     <paper-input
@@ -64,7 +64,7 @@ Custom property | Description | Default
   <script>
     Polymer({
 
-      is: 'money-input',
+      is: 'paper-money-input',
 
       behaviors: [
         Polymer.IronFormElementBehavior
@@ -192,16 +192,15 @@ Custom property | Description | Default
 
       /** You can use this to re-render the input */
       renderElement: function(){
+
         this.$.input.invalid = false;
+
         if(this.value && !this._formattedValue) {
-          var signal = this._getSignal('' + this.value);
-          if(('' + this.value).length >= this.precision) {
-            this._formattedValue = signal + this.value;
-          } else {
-            this._formattedValue = signal + this.value + this._generateNecessarySizeOfZerosChar();
-          }
+          this._valuePreProcessing();
         }
+
         this._setValue = function (f) {
+
           if(this._formattedValue) {
             var signal = this._getSignal(this._formattedValue);
             var number = parseFloat(this._removeUI(this._formattedValue)) / (Math.pow(10, this.precision));
@@ -216,18 +215,54 @@ Custom property | Description | Default
         this._formattedValue = '';
       },
 
-      _valueChange: function() {
-        if (this._formattedValue != this.value) {
-          if(!isNaN(parseFloat(this.value)) && isFinite(this.value)) {
-            var signal = this._getSignal('' + this.value);
-            if((''+this.value).length >= this.precision) {
-              this._formattedValue = signal + this.value;
-            } else {
-              this._formattedValue = signal + this.value + this._generateNecessarySizeOfZerosChar();
+
+      _valuePreProcessing: function() {
+        var signal = ("" + this.value).indexOf("\-") >= 0 ? "-" : "";
+
+        var multiplier = Math.pow(10, this.precision);
+        var value = (this.value * multiplier) / multiplier;
+        var fraction = value % 1;
+        var decFraction = (fraction * multiplier) / multiplier;
+
+        var integer = undefined;
+        var completeNumber = undefined;
+
+        if (decFraction == 0 && this.precision != 0) {
+          completeNumber = signal + value + ".00";
+        }
+        else {
+          integer = Number(this.value) - Number(decFraction);
+          completeNumber = (integer + decFraction);
+
+          completeNumber = completeNumber + '';
+          var respFraction = completeNumber.split('.');
+
+          if (respFraction[1]) {
+            var respFractionLen = respFraction[1].length;
+
+            if (respFractionLen > this.precision) {
+              completeNumber = Number(completeNumber).toFixed(this.precision);
             }
-          } else {
-            this.clean();
+            else {
+
+              var oddOrEven = respFractionLen % 2;
+              if (oddOrEven > 0 ) {
+                completeNumber = '' + completeNumber + '0';
+              }
+            }
           }
+
+        }
+
+        this._formattedValue = completeNumber;
+      },
+
+      _valueChange: function(){
+
+        if((this.value || this.value === 0 || this.value === '0') &&
+            (this._formattedValue != this.value || this.value === 0 || this.value === '0')) {
+
+          this._valuePreProcessing();
         }
       },
 
@@ -255,16 +290,17 @@ Custom property | Description | Default
       _onValueChanged: function(){
         this.validate();
 
-        if (this._formattedValue === '' || (this._formattedValue === '0' && this.precision == 0)) {
-          this.value = this._formattedValue === '' ? undefined : 0;
+        if (this._formattedValue === '' ||
+          (this._formattedValue === '0' && this.precision == 0)) {
           return;
         }
 
-        if (this.precision == 0) {
+        if(this.precision == 0){
           this._formattedValue = this._markAmount(this._removeUI(this._formattedValue));
           return;
         }
-        var signal = this._getSignal(this._formattedValue);
+
+        var signal = ('' + this._formattedValue).indexOf("\-")>=0 ? "-" : "";
 
         if(this._removeUI(this._formattedValue).length < (this.precision + 1)) {
 
@@ -280,7 +316,8 @@ Custom property | Description | Default
               this._formattedValue = signal + '0' + this._getDecimal(this._formattedValue);
               return;
             } else if((group[0].length + decNoZeros.length) < this.precision) {
-              this._formattedValue = signal + group[0] + decNoZeros + this._generateNecessarySizeOfZerosChar(group[0].length + decNoZeros.length);
+              this._formattedValue = signal + group[0] + decNoZeros +
+                this._generateNecessarySizeOfZerosChar(group[0].length + decNoZeros.length);
               return;
             }
           } else {
@@ -293,7 +330,7 @@ Custom property | Description | Default
       },
 
       _removeUI: function(string){
-        return string.replace(/[^\d]*/g, '');
+        return ('' + string).replace(/[^\d]*/g, '');
       },
 
       _getSignal: function(value) {
@@ -306,8 +343,8 @@ Custom property | Description | Default
       },
 
       _validate: function(value) {
-        var signal = this._getSignal(value);
-        var n = parseFloat(signal + this._removeUI(value))/(Math.pow(10,this.precision));
+        var signal = ('' + value).indexOf("\-")>=0 ? "-" : "";
+        var n = parseFloat(signal+this._removeUI(value))/(Math.pow(10,this.precision));
 
         if(n > this.maxValue){
           this.$.input.invalid = true;

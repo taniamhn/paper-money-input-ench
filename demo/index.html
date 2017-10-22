@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>money-input demo</title>
+    <title>paper-money-input demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
@@ -9,7 +9,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
-    <link rel="import" href="../money-input.html">
+    <link rel="import" href="../paper-money-input.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
@@ -20,28 +20,35 @@
       <h3>Basic</h3>
       <demo-snippet>
         <template>
-          <money-input></money-input>
+          <paper-money-input value="0"></paper-money-input>
+        </template>
+      </demo-snippet>
+
+      <h3>Negative</h3>
+      <demo-snippet>
+        <template>
+          <paper-money-input value="-5.66"></paper-money-input>
         </template>
       </demo-snippet>
 
       <h3>Preset/Error</h3>
       <demo-snippet>
         <template>
-          <money-input max-value="2" value="4.00"></money-input>
+          <paper-money-input max-value="2" min-value="1" value="5.66"></paper-money-input>
         </template>
       </demo-snippet>
 
       <h3>Precision 0</h3>
       <demo-snippet>
         <template>
-          <money-input max-value="99" value="4" precision="0" min-value="2"></money-input>
+          <paper-money-input max-value="99" value="4" precision="0"></paper-money-input>
         </template>
       </demo-snippet>
 
-      <h3>noLabelFloat</h3>
+      <h3>noLableFloat & Decimal w/ lots of digits</h3>
       <demo-snippet>
         <template>
-          <money-input no-label-float value="600"></money-input>
+          <paper-money-input no-label-float value="600.999999956"></paper-money-input>
         </template>
       </demo-snippet>
 
@@ -49,11 +56,11 @@
       <demo-snippet>
         <template>
           <style is="custom-style">
-            money-input.custom-style {
-              --money-input-width: 120px;
+            paper-money-input.custom-style {
+              --paper-money-input-width: 120px;
             }
           </style>
-          <money-input class="custom-style" value="{{value}}"></money-input>
+          <paper-money-input class="custom-style" value="{{value}}"></paper-money-input>
         </template>
       </demo-snippet>
     </div>
