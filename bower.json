@@ -2,7 +2,7 @@
   "name": "paper-money-input",
   "description": "`paper-money-input` is a customizable input validator and mask. Forked from maney-input",
   "main": "paper-money-input.html",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "homepage": "",
   "dependencies": {
     "polymer": "Polymer/polymer#~1.11.0",
