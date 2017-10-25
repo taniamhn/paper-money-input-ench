@@ -25,7 +25,8 @@ Default options example:
 Custom property | Description | Default
 ----------------|-------------|----------
 `--paper-money-input-ench-width` | Field width | 100%
-
+`--paper-money-input-ench-suffix` | mixin | {}
+`--paper-money-input-ench-prefix` | mixin | {}
 @demo demo/index.html
 -->
 
@@ -37,6 +38,7 @@ Custom property | Description | Default
       }
       .prefix {
         padding-right: 10px;
+        @apply(--paper-money-input-ench-prefix);
       }
       paper-input {
         width: var(--paper-money-input-ench-width);
