@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>paper-money-input demo</title>
+    <title>paper-money-input-ench demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
@@ -9,7 +9,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
-    <link rel="import" href="../paper-money-input.html">
+    <link rel="import" href="../paper-money-input-ench.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
@@ -20,35 +20,35 @@
       <h3>Basic</h3>
       <demo-snippet>
         <template>
-          <paper-money-input value="0"></paper-money-input>
+          <paper-money-input-ench value="0"></paper-money-input-ench>
         </template>
       </demo-snippet>
 
       <h3>Negative</h3>
       <demo-snippet>
         <template>
-          <paper-money-input value="-5.66"></paper-money-input>
+          <paper-money-input-ench value="-5.66"></paper-money-input-ench>
         </template>
       </demo-snippet>
 
       <h3>Preset/Error</h3>
       <demo-snippet>
         <template>
-          <paper-money-input max-value="2" min-value="1" value="5.66"></paper-money-input>
+          <paper-money-input-ench max-value="2" min-value="1" value="5.66"></paper-money-input-ench>
         </template>
       </demo-snippet>
 
       <h3>Precision 0</h3>
       <demo-snippet>
         <template>
-          <paper-money-input max-value="99" value="4" precision="0"></paper-money-input>
+          <paper-money-input-ench max-value="99" value="4" precision="0"></paper-money-input-ench>
         </template>
       </demo-snippet>
 
       <h3>noLableFloat & Decimal w/ lots of digits</h3>
       <demo-snippet>
         <template>
-          <paper-money-input no-label-float value="600.999999956"></paper-money-input>
+          <paper-money-input-ench no-label-float value="600.999999956"></paper-money-input-ench>
         </template>
       </demo-snippet>
 
@@ -56,17 +56,17 @@
       <demo-snippet>
         <template>
           <style is="custom-style">
-            paper-money-input.custom-style {
-              --paper-money-input-width: 120px;
-              --paper-money-input-suffix: {
+            paper-money-input-ench.custom-style {
+              --paper-money-input-ench-width: 120px;
+              --paper-money-input-ench-suffix: {
                 color: red;
               }
             }
           </style>
-          <paper-money-input class="custom-style"
+          <paper-money-input-ench class="custom-style"
                              suffix="%"
                              currency=""
-                             value="{{value}}"></paper-money-input>
+                             value="{{value}}"></paper-money-input-ench>
         </template>
       </demo-snippet>
     </div>

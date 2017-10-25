@@ -2,28 +2,28 @@
 
 <html>
   <head>
-    <title>paper-money-input test</title>
+    <title>paper-money-input-ench test</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../paper-money-input.html">
+    <link rel="import" href="../paper-money-input-ench.html">
   </head>
   <body>
 
     <test-fixture id="basic">
       <template>
-        <paper-money-input></paper-money-input>
+        <paper-money-input-ench></paper-money-input-ench>
       </template>
     </test-fixture>
 
     <script>
-      suite('paper-money-input', function() {
+      suite('paper-money-input-ench', function() {
 
         test('instantiating the element works', function() {
           let element = fixture('basic');
-          assert.equal(element.is, 'paper-money-input');
+          assert.equal(element.is, 'paper-money-input-ench');
         });
 
       });

@@ -11,25 +11,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
 
 <!--
-`<paper-money-input>` is a customizable input validator and mask for currency amounts.
+`<paper-money-input-ench>` is a customizable input validator and mask for currency amounts.
 It uses the paper-input element to create the element form.
 
 Default options example:
 
 ```html
-    <paper-money-input value="{{value}}"></paper-money-input>
+    <paper-money-input-ench value="{{value}}"></paper-money-input-ench>
 ```
 
 ### Styling
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--paper-money-input-width` | Field width | 100%
+`--paper-money-input-ench-width` | Field width | 100%
 
 @demo demo/index.html
 -->
 
-<dom-module id="paper-money-input">
+<dom-module id="paper-money-input-ench">
   <template>
     <style is="custom-style">
       :host {
@@ -39,10 +39,10 @@ Custom property | Description | Default
         padding-right: 10px;
       }
       paper-input {
-        width: var(--paper-money-input-width);
+        width: var(--paper-money-input-ench-width);
       }
       .suffix {
-        @apply(--paper-money-input-suffix);
+        @apply(--paper-money-input-ench-suffix);
       }
     </style>
     <paper-input
@@ -65,7 +65,7 @@ Custom property | Description | Default
   <script>
     Polymer({
 
-      is: 'paper-money-input',
+      is: 'paper-money-input-ench',
 
       behaviors: [
         Polymer.IronFormElementBehavior
