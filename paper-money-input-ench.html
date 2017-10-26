@@ -49,6 +49,7 @@ Custom property | Description | Default
     </style>
     <paper-input
             id="input"
+            invalid="{{invalid}}"
             label="[[label]]"
             no-label-float="[[noLabelFloat]]"
             always-float-label="[[alwaysFloatLabel]]"
@@ -83,6 +84,12 @@ Custom property | Description | Default
         /** Disable field */
         disabled: {
           type: Boolean,
+          value: false
+        },
+        /** Disable field */
+        invalid: {
+          type: Boolean,
+          notify:true,
           value: false
         },
 
