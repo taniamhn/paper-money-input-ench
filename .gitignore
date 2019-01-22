@@ -5,3 +5,4 @@
 .idea/
 .directory
 bower_components/
+node_modules
